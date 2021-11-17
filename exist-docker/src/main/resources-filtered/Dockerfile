@@ -20,7 +20,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-FROM openjdk:8-jdk-slim as builder
+FROM openjdk:11-jdk as builder
 
 # Install tools required by FOP
 WORKDIR /usr/local
@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   liblcms2-2 \
   fonts-dejavu-core
 
-FROM gcr.io/distroless/java:8
+FROM gcr.io/distroless/java:11
 
 # Copy over dependancies for Apache FOP, missing from gcr's JRE
 COPY --from=builder /usr/lib/x86_64-linux-gnu/libfreetype.so.6 /usr/lib/x86_64-linux-gnu/libfreetype.so.6
